@@ -56,5 +56,36 @@ class InteractiveRecord
     grab_id = "SELECT last_insert_rowid() FROM #{table_name_for_insert}"
     @id = DB[:conn].execute(grab_id)[0][0]
   end
+
+  def self.find_by_name(name)
+    sql = "SELECT * FROM #{self.table_name} WHERE name = ?"
+    DB[:conn].execute(sql,name)
+
+  end
+
+  def self.find_by(attribute)
+    search_item = ""
+    search_key = ""
+    attribute.each do |key,value|
+      search_item = value
+      search_key = key
+    end
+    # binding.pry
+    case search_key
+    when :name
+      sql = "SELECT * FROM #{self.table_name} WHERE name = ?"
+      DB[:conn].execute(sql,search_item)
+    when :grade
+      sql = "SELECT * FROM #{self.table_name} WHERE grade = ?"
+      DB[:conn].execute(sql,search_item)
+    when :id
+      sql = "SELECT * FROM #{self.table_name} WHERE ID = ?"
+      DB[:conn].execute(sql,search_item.to_i)
+    end
+
+
+
+    
+  end
   
 end
