@@ -1,7 +1,20 @@
 require_relative "../config/environment.rb"
 require 'active_support/inflector'
 require 'interactive_record.rb'
+require 'pry'
 
 class Student < InteractiveRecord
 
+    ATTRIBUTES = self.column_names.each do |col_name|
+        attr_accessor col_name.to_s
+    end
+
+    def initialize(options={})
+        options.each do |attr, value|
+            self.send("#{attr}=", value)
+        end
+
+    end
+    #binding.pry
+    
 end
