@@ -13,8 +13,5 @@ class Student < InteractiveRecord
         options.each do |attr, value|
             self.send("#{attr}=", value)
         end
-
     end
-    #binding.pry
-    
 end
